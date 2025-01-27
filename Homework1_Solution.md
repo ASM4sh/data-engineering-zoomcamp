@@ -60,3 +60,44 @@ Regarding the port,  the `db` service is mapping port **5433** on the host to **
 
 ## Task: Prepare PostgreSQL and Load Data
 For this task, I used the python script to load two provided datasets into Postgres. The Python script can be found [here](./load_data_to_postgres.py).
+
+
+## Question 3: Trip Segmentation Count
+
+### Task:
+> During the period of **October 1st, 2019** (inclusive) and **November 1st, 2019** (exclusive), how many trips, respectively, happened in each of the following distance ranges:
+> - Up to 1 mile
+> - In between 1 (exclusive) and 3 miles (inclusive)
+> - In between 3 (exclusive) and 7 miles (inclusive)
+> - In between 7 (exclusive) and 10 miles (inclusive)
+> - Over 10 miles
+
+### Solution:
+To answer this question, I used the following SQL Query:
+
+```sql
+SELECT
+    CASE
+        WHEN trip_distance <= 1 THEN 'Up to 1 mile'
+        WHEN trip_distance > 1 AND trip_distance <= 3 THEN '1 to 3 miles'
+        WHEN trip_distance > 3 AND trip_distance <= 7 THEN '3 to 7 miles'
+        WHEN trip_distance > 7 AND trip_distance <= 10 THEN '7 to 10 miles'
+        ELSE 'Over 10 miles'
+    END AS distance_range,
+    COUNT(*) AS trip_count
+FROM green_tripdata_2019_10
+WHERE
+    lpep_pickup_datetime >= '2019-10-01'
+    AND lpep_pickup_datetime < '2019-11-01'
+    AND trip_distance IS NOT NULL  -- Ensure valid trip distances
+GROUP BY distance_range
+ORDER BY trip_count DESC;
+```
+where the **CASE** statement is used to categorize trips into the required distance ranges and the **WHERE** clause filters trips by dates. 
+The result to the query can be found [here](images/Question3_Query.PNG)
+
+When the query was executed, the results did not match any of the options stated in the problem. To ensure the accuracy of our results, we also performed the same calculations using pandas in a Jupyter Notebook.
+The results were the same as the ones recieved with the query, so I chose the closes option of the provided. 
+
+The Jupyter Notebook can be found [here](https://colab.research.google.com/drive/1IishWo1pE6CN-HyBtFl8anNxDD6iKKE8?usp=sharing))
+

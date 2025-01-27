@@ -96,7 +96,7 @@ ORDER BY trip_count DESC;
 where the **CASE** statement is used to categorize trips into the required distance ranges and the **WHERE** clause filters trips by dates. 
 The result to the query can be found [here](images/Question3_Query.PNG)
 
-When the query was executed, the results did not match any of the options stated in the problem. To ensure the accuracy of our results, we also performed the same calculations using pandas in a Jupyter Notebook.
+When the query was executed, the results did not match any of the options stated in the problem. To ensure the accuracy of our results, I also performed the same calculations using pandas in a Jupyter Notebook.
 The results were the same as the ones recieved with the query, so I chose the closes option of the provided. 
 
 The Jupyter Notebook can be found [here](https://colab.research.google.com/drive/1IishWo1pE6CN-HyBtFl8anNxDD6iKKE8?usp=sharing))

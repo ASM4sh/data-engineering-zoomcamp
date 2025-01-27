@@ -43,7 +43,7 @@ By the time I started the course, I already had a basic understanding of Docker 
 ## Question 2: Understanding Docker networking and docker-compose
 
 ### Task:
-> Given thedocker-compose.yaml, identify the hostname and port that pgadmin should use to connect to the postgres database.
+> Given the docker-compose.yaml, identify the hostname and port that pgadmin should use to connect to the postgres database.
 #### Options:
 - postgres:5433
 - localhost:5432
@@ -58,3 +58,5 @@ In Docker Compose, containers within the same network can refer to each other by
 However, as far as I am aware, container name can also be a valid option to access service container in an intercontainer network. In this case, the container name for the PostgreSQL container is **postgres**.
 Regarding the port,  the `db` service is mapping port **5433** on the host to **5432** inside the container. In this case, pgAdmin should connect to the **internal port 5432** of the PostgreSQL container due to the port mapping internally within the network.
 
+## Task: Prepare PostgreSQL and Load Data
+For this task, I used the python script to load two provided datasets into Postgres. The Python script can be found [here](./load_data_to_postgres.py).

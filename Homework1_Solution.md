@@ -101,3 +101,84 @@ The results were the same as the ones recieved with the query, so I chose the cl
 
 The Jupyter Notebook can be found [here](https://colab.research.google.com/drive/1IishWo1pE6CN-HyBtFl8anNxDD6iKKE8?usp=sharing))
 
+## Question 4: Longest Trip for Each Day
+
+### Task:
+> Which was the pickup day with the longest trip distance?
+
+### Solution:
+The used **SQL query** calculates the longest trip for each day in **October 2019** by grouping the data by **pickup day**, calculating the maximum trip distance for each group, and sorting the results to get the day with the longest trip distance.
+
+### SQL Query:
+
+```sql
+SELECT 
+    CAST(lpep_pickup_datetime AS DATE) AS pickup_day,
+    MAX(trip_distance) AS longest_trip_distance
+FROM green_tripdata_2019_10
+WHERE 
+    lpep_pickup_datetime >= '2019-10-01'
+    AND lpep_pickup_datetime < '2019-11-01'
+    AND trip_distance IS NOT NULL  -- Ensure valid trip distances
+GROUP BY pickup_day
+ORDER BY longest_trip_distance DESC
+LIMIT 1;
+```
+The result to the query can be found [here](images/Question4_Query.png)
+
+## Question 5: Biggest Pickup Zones
+
+### Task:
+> Which are the top **pickup locations** with a **total amount** greater than **13,000** on **October 18, 2019**?
+
+### Solution:
+The used  **SQL query** joins the tables to get the **pickup and drop-off zones** based on the **location IDs**. Filtering by **`lpep_pickup_datetime`** ensures that only trips from **October 18, 2019** are considered.
+
+### SQL Query:
+```sql
+SELECT 
+    g."PULocationID",
+    t."Zone" AS pickup_zone,  -- Assuming the zone column is named "zone" in taxi_zone_lookup
+    SUM(g.total_amount) AS total_amount
+FROM green_tripdata_2019_10 g
+JOIN taxi_zone_lookup t 
+    ON g."PULocationID" = t."LocationID"  -- Assuming "location_id" is the corresponding column in taxi_zone_lookup
+WHERE 
+    g.lpep_pickup_datetime >= '2019-10-18 00:00:00'
+    AND g.lpep_pickup_datetime < '2019-10-19 00:00:00'
+    AND g.total_amount IS NOT NULL  -- Ensure valid total_amount
+GROUP BY g."PULocationID", t."Zone"
+HAVING SUM(g.total_amount) > 13000
+ORDER BY total_amount DESC;
+```
+
+The result to the query can be found [here](images/Question5_Query.png)
+
+## Question 6: Largest Tip
+
+### Task:
+> For passengers picked up in **"East Harlem North"** on **October 18, 2019**, which drop-off zone had the **largest tip**?
+
+### Solution:
+The approach is similar to the previous one, with the function **`MAX(tip_amount)`** used to get the largest tip for each drop-off zone.
+
+### SQL Query:
+
+```sql
+SELECT 
+    t2."Zone" AS dropoff_zone_name,  -- Drop-off zone name
+    MAX(g.tip_amount) AS largest_tip
+FROM green_tripdata_2019_10 g
+JOIN taxi_zone_lookup t1 ON g."PULocationID" = t1."LocationID"  -- Pickup location join
+JOIN taxi_zone_lookup t2 ON g."DOLocationID" = t2."LocationID"  -- Drop-off location join
+WHERE 
+    t1."Zone" = 'East Harlem North'  -- Filter for pickup zone
+    AND g.lpep_pickup_datetime >= '2019-10-18 00:00:00'
+    AND g.lpep_pickup_datetime < '2019-10-19 00:00:00'
+    AND g.tip_amount IS NOT NULL  -- Ensure valid tip amounts
+GROUP BY t2."Zone"
+ORDER BY largest_tip DESC
+LIMIT 1;
+```
+
+The result to the query can be found [here](images/Question6_Query.png)

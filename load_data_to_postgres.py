@@ -8,7 +8,7 @@ db_name = "ny_taxi"    # Database name
 db_user = "postgres"   # Username
 db_password = "postgres"  # Password
 
-# Create the PostgreSQL connection engine
+# Creating the PostgreSQL connection engine
 engine = create_engine(f"postgresql://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}")
 
 # Function to load CSV data into PostgreSQL
@@ -20,12 +20,12 @@ def load_csv_to_postgres(csv_file, table_name):
             low_memory=False,           # Avoid mixed type warnings
             encoding="ISO-8859-1"       # Handle encoding issues
         )
-        # Write the data into PostgreSQL
+        # Writing the data into PostgreSQL
         df.to_sql(table_name, engine, index=False, if_exists="replace")
         print(f"Data successfully loaded into '{table_name}'.")
     except Exception as e:
         print(f"Error loading data: {e}")
 
-# Load datasets into PostgreSQL
+# Loading datasets into PostgreSQL
 load_csv_to_postgres("green_tripdata_2019-10.csv", "green_tripdata_2019_10")
 load_csv_to_postgres("taxi_zone_lookup.csv", "taxi_zone_lookup")

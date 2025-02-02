@@ -1,4 +1,4 @@
-# Solution for `Module 1 Homework: Docker & SQL`
+# Solution for `Module 2 Workflow Orchestration`
 
 > This is the solution to the second homework for the 2025 cohort of **DE Zoomcamp**.  
 

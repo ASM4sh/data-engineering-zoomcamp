@@ -17,7 +17,7 @@
 - ```{{inputs.taxi}}_tripdata_{{inputs.year}}-{{inputs.month}}.csv```
 - ```green_tripdata_2020-04.csv```
 - ```green_tripdata_04_2020.csv```
-- ```green_tripdata_2020.csv```
+- ```green_tripdata_2020.csv
 ### Answer: green_tripdata_2020-04.csv
 
 ## Question 3: How many rows are there for the Yellow Taxi data for all CSV files in the year 2020?
@@ -30,18 +30,42 @@
 ```sql
 SELECT count(*)
 FROM public.yellow_tripdata
-WHERE filename LIKE '%2020%';```
+WHERE filename LIKE '%2020%';
+```
 ### Answer: 24,648,499
 
-## Question 4: How many rows are there for the Yellow Taxi data for all CSV files in the year 2020? 
+## Question 4: How many rows are there for the Green Taxi data for all CSV files in the year 2020?
 ### Options:
-- 13,537.299
-- 24,648,499
-- 18,324,219
-- 29,430,127
+- 5,327,301
+- 936,199
+- 1,734,051
+- 1,342,034
 ### Solution:
 ```sql
 SELECT count(*)
-FROM public.yellow_tripdata
+FROM public.green_tripdata
 WHERE filename LIKE '%2020%';
-### Answer: 24,648,499
+```
+### Answer: 1,734,051
+
+## Question 5: How many rows are there for the Yellow Taxi data for the March 2021 CSV file?
+### Options:
+- 1,428,092
+- 706,911
+- 1,925,152
+- 2,561,031
+### Solution:
+```sql
+SELECT count(*)
+FROM public.green_tripdata
+WHERE filename LIKE '%2021-03%';
+```
+### Answer: 1,925,152
+
+## Question 6: How would you configure the timezone to New York in a Schedule trigger?
+### Options:
+-    Add a timezone property set to EST in the Schedule trigger configuration
+-    Add a timezone property set to America/New_York in the Schedule trigger configuration
+-    Add a timezone property set to UTC-5 in the Schedule trigger configuration
+-    Add a location property set to New_York in the Schedule trigger configuration
+### Answer: Add a timezone property set to America/New_York in the Schedule trigger configuration

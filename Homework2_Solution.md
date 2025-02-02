@@ -30,7 +30,7 @@
 ```sql
 SELECT count(*)
 FROM public.yellow_tripdata
-WHERE filename LIKE '%2020%';
+WHERE filename LIKE '%2020%';```
 ### Answer: 24,648,499
 
 ## Question 4: How many rows are there for the Yellow Taxi data for all CSV files in the year 2020? 

@@ -85,7 +85,15 @@ WHERE fare_amount = 0 ;
 ## Question 5: What is the best strategy to make an optimized table in Big Query if your query will always filter based on tpep_dropoff_datetime and order the results by VendorID (Create a new table with this strategy) 
 
 ### Solution:
-
+```sql
+CREATE OR REPLACE TABLE `green-bedrock-450715-u0.yellow_taxi_2024.optimized_taxi_table`
+PARTITION BY DATE(tpep_dropoff_datetime)  -- Partitioning on date for filtering efficiency
+CLUSTER BY VendorID  -- Clustering on VendorID for efficient ordering
+AS
+SELECT * FROM `green-bedrock-450715-u0.yellow_taxi_2024.yellow_taxi_materialized`;
+```
+Partitioning by tpep_dropoff_datetime would allow BigQuery to scan only relevant partitions instead of the entire table.
+Clustering by VendorID allows ordering on this column.
 
 ## Question 6: Write a query to retrieve the distinct VendorIDs between tpep_dropoff_datetime 2024-03-01 and 2024-03-15 (inclusive). Use the materialized table you created earlier in your from clause and note the estimated bytes. Now change the table in the from clause to the partitioned table you created for question 5 and note the estimated bytes processed. What are these values? 
 

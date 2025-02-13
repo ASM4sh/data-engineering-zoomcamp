@@ -56,31 +56,42 @@ for external and materized table respectfully, it is possible to estimate the am
 For this task, I used the python script to load two provided datasets into Postgres. The Python script can be found [here](./load_data_to_postgres.py).
 
 
-## Question 3: 
-
-### Task:
+## Question 3:Write a query to retrieve the PULocationID from the table (not the external table) in BigQuery. Now write a query to retrieve the PULocationID and DOLocationID on the same table. Why are the estimated number of Bytes different?
 
 ### Solution:
+To retrieve the PULocationID:
+```sql
+SELECT PULocationID FROM `green-bedrock-450715-u0.yellow_taxi_2024.yellow_taxi_materialized`;
+```
+
+To retrieve the PULocationID and DOLocationID:
+```sql
+SELECT PULocationID, DOLocationID FROM `green-bedrock-450715-u0.yellow_taxi_2024.yellow_taxi_materialized`;
+```
+
+BigQuery does not duplicate columns in partitions unnecessarily. It only reads the requested columns.
+BigQuery does not cache query results automatically unless you use BI Engine or Materialized Views.
+There is no implicit join. BigQuery simply reads more columns but does not "join" them.
 
 
 ## Question 4: How many records have a fare_amount of 0? 
 
 ### Solution:
 ```sql
-SELECT COUNT(DISTINCT PULocationID) AS distinct_pu_locations FROM `green-bedrock-450715-u0.yellow_taxi_2024.yellow_taxi_external`;
+SELECT COUNT(fare_amount)  FROM `green-bedrock-450715-u0.yellow_taxi_2024.yellow_taxi_external`
+WHERE fare_amount = 0 ;
 ```
 
-## Question 5: 
-
-
+## Question 5: What is the best strategy to make an optimized table in Big Query if your query will always filter based on tpep_dropoff_datetime and order the results by VendorID (Create a new table with this strategy) 
 
 ### Solution:
 
 
-## Question 6: 
+## Question 6: Write a query to retrieve the distinct VendorIDs between tpep_dropoff_datetime 2024-03-01 and 2024-03-15 (inclusive). Use the materialized table you created earlier in your from clause and note the estimated bytes. Now change the table in the from clause to the partitioned table you created for question 5 and note the estimated bytes processed. What are these values? 
 
 
 ### Solution:
 
 ### SQL Query:
 
+## Question 7: Where is the data stored in the External Table you created?

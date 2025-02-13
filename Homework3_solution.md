@@ -4,21 +4,21 @@
 > For this homework the Yellow Taxi Trip Records for January 2024 - June 2024 are used. Parquet Files from the New York City Taxi Data were found here:
 https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page
 > The files were manually uploaded to GCS Bucket.
-> ## BIG QUERY SETUP:
+ ## BIG QUERY SETUP:
 > To create external table using the uploaded data I ran the following query:
->```sql
+```sql
    CREATE OR REPLACE TABLE green-bedrock-450715-u0.yellow_taxi_2024.native_yellow_taxi
 AS(
   SELECT * FROM `green-bedrock-450715-u0.yellow_taxi_2024.yellow_taxi_external`
 )
-   ```
+```
 
 > To create materialized table using the uploaded data I ran the following query:
->```sql
+```sql
    CREATE TABLE `green-bedrock-450715-u0.yellow_taxi_2024.yellow_taxi_materialized`
 AS
 SELECT * FROM `green-bedrock-450715-u0.yellow_taxi_2024.yellow_taxi_external`;
-   ```
+```
 > In the code snippets above 'green-bedrock-450715-u0' is the name BigQuery console assigned automatically to the project.
 ## Question 1: What is count of records for the 2024 Yellow Taxi Data?
 #### Options:

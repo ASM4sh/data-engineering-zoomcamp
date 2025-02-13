@@ -5,7 +5,7 @@
 https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page
 > The files were manually uploaded to GCS Bucket.
  ## BIG QUERY SETUP:
-> To create external table using the uploaded data I ran the following query:
+ To create external table using the uploaded data I ran the following query:
 ```sql
    CREATE OR REPLACE TABLE green-bedrock-450715-u0.yellow_taxi_2024.native_yellow_taxi
 AS(
@@ -13,13 +13,13 @@ AS(
 )
 ```
 
-> To create materialized table using the uploaded data I ran the following query:
+To create materialized table using the uploaded data I ran the following query:
 ```sql
    CREATE TABLE `green-bedrock-450715-u0.yellow_taxi_2024.yellow_taxi_materialized`
 AS
 SELECT * FROM `green-bedrock-450715-u0.yellow_taxi_2024.yellow_taxi_external`;
 ```
-> In the code snippets above 'green-bedrock-450715-u0' is the name BigQuery console assigned automatically to the project.
+ In the code snippets above 'green-bedrock-450715-u0' is the name BigQuery console assigned automatically to the project.
 ## Question 1: What is count of records for the 2024 Yellow Taxi Data?
 #### Options:
 - 65,623

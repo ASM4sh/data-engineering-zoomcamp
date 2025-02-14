@@ -99,7 +99,19 @@ Clustering by VendorID allows ordering on this column.
 
 
 ### Solution:
-
-### SQL Query:
-
+For the materialized table:
+```sql
+SELECT DISTINCT VendorID
+FROM `green-bedrock-450715-u0.yellow_taxi_2024.yellow_taxi_materialized`
+WHERE tpep_dropoff_datetime BETWEEN '2024-03-01' AND '2024-03-15';
+```
+For the partitioned table:
+```sql
+SELECT DISTINCT VendorID
+FROM `green-bedrock-450715-u0.yellow_taxi_2024.optimized_taxi_table`
+WHERE tpep_dropoff_datetime BETWEEN '2024-03-01' AND '2024-03-15';
+```
 ## Question 7: Where is the data stored in the External Table you created?
+### Solution:
+The data is stored in Google Cloud Storage (GCS) Bucket, and BigQuery simply references it.
+
